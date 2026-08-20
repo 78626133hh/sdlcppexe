@@ -18,13 +18,13 @@ jobs:
             mingw-w64-x86_64-SDL2
             mingw-w64-x86_64-make
 
-      - name: 编译
+      - name: 静态编译（SDL2 直接嵌入 EXE）
         shell: msys2 {0}
         run: |
-          g++ -std=c++14 *.cpp -o game.exe `sdl2-config --cflags --libs`
+          g++ -std=c++14 *.cpp -o game.exe `sdl2-config --cflags --libs` -static-libgcc -static-libstdc++ -Wl,-Bstatic -lmingw32 -lSDL2main -lSDL2 -Wl,-Bdynamic -lwinmm -lgdi32 -lole32 -ldinput8 -ldxguid -limm32
 
       - name: 上传 EXE
         uses: actions/upload-artifact@v4
         with:
-          name: my-game-windows
+          name: game-windows
           path: game.exe
