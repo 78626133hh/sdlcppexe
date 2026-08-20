@@ -18,10 +18,10 @@ jobs:
             mingw-w64-x86_64-SDL2
             mingw-w64-x86_64-make
 
-      - name: 编译（自动包含所有 .cpp）
+      - name: 编译
         shell: msys2 {0}
         run: |
-          g++ -std=c++14 *.cpp -o game.exe `pkg-config --cflags --libs sdl2`
+          g++ -std=c++14 *.cpp -o game.exe `sdl2-config --cflags --libs`
 
       - name: 上传 EXE
         uses: actions/upload-artifact@v4
